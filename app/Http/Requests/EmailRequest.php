@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class EmailRequest extends FormRequest
 {
@@ -12,12 +11,12 @@ class EmailRequest extends FormRequest
         return true;
     }
 
-     public function rules(): array
+    public function rules(): array
     {
         return [
-            'email'      => 'required|email|unique:emails,email',
-            'subject'    => 'required|string|max:255',
-            'body'       => 'required|string',
+            'email' => 'required|email|unique:emails,email',
+            'subject' => 'required|string|max:255',
+            'body' => 'required|string',
             'attachment' => 'nullable|file|max:2048',
         ];
     }

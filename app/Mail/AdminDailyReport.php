@@ -4,7 +4,6 @@ namespace App\Mail;
 
 use App\Models\EmailReport;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
@@ -14,7 +13,7 @@ class AdminDailyReport extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public EmailReport $report; 
+    public EmailReport $report;
 
     /**
      * Create a new message instance.
@@ -43,7 +42,7 @@ class AdminDailyReport extends Mailable
             view: 'emails.admin_daily_report',
             text: 'emails.admin_daily_report_plain',
             with: [
-                'report' => $this->report, 
+                'report' => $this->report,
             ]
         );
     }

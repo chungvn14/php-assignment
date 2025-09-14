@@ -8,17 +8,18 @@ use App\Models\Email;
 use Exception;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Facades\Mail;
+use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Support\Facades\Mail;
 
 class SendEmailJob implements ShouldQueue
 {
-    use Queueable, InteractsWithQueue, SerializesModels, Dispatchable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public int $tries = 3;
+
     public int $timeout = 120;
 
     public Email $email;
@@ -32,53 +33,54 @@ class SendEmailJob implements ShouldQueue
     {
         $email = Email::find($this->email->id);
 
-        if (!$email) {
+        if (! $email) {
             Log::warning('Email record not found', ['id' => $this->email->id]);
+
             return;
         }
 
         try {
             Log::info('SendEmailJob starting send', [
-                'to'       => $email->email,
-                'subject'  => $email->subject,
-                'id'       => $email->id,
-                'attach'   => $email->attachment_path ?? null,
+                'to' => $email->email,
+                'subject' => $email->subject,
+                'id' => $email->id,
+                'attach' => $email->attachment_path ?? null,
             ]);
 
             // Gửi mail
             Mail::to($email->email)->send(new EmailNotification($email));
 
             $email->update([
-                'status'  => EmailStatus::SENT,
+                'status' => EmailStatus::SENT,
                 'sent_at' => now(),
             ]);
 
             Log::info('SendEmailJob success', [
-                'to'      => $email->email,
+                'to' => $email->email,
                 'subject' => $email->subject,
-                'id'      => $email->id,
+                'id' => $email->id,
             ]);
 
         } catch (Exception $e) {
             Log::error('SendEmailJob failed', [
-                'id'    => $email->id,
-                'to'    => $email->email,
+                'id' => $email->id,
+                'to' => $email->email,
                 'error' => $e->getMessage(),
             ]);
 
             $email->increment('attempts');
             $email->update(['status' => EmailStatus::FAILED]);
 
-            throw $e; 
+            throw $e;
+        }
     }
-    }
+
     public function failed(Exception $exception): void
     {
         Log::error('SendEmailJob permanently failed', [
-            'id'    => $this->email->id,
-            'to'    => $this->email->email,
-            'error' => $exception->getMessage()
+            'id' => $this->email->id,
+            'to' => $this->email->email,
+            'error' => $exception->getMessage(),
         ]);
     }
-
 }

@@ -22,7 +22,7 @@ class EmailNotification extends Mailable
     public function __construct(Email $email)
     {
         $this->email = $email;
-        
+
     }
 
     /**
@@ -32,25 +32,24 @@ class EmailNotification extends Mailable
     {
         return new Envelope(
             subject: $this->email->subject ?? 'Email Notification',
-           to: [$this->email->email]
+            to: [$this->email->email]
         );
     }
 
     /**
      * Get the message content definition.
      */
- public function content(): Content
-{
-    return new Content(
-        view: 'emails.email_notification',
-        with: [
-            'subject' => $this->email->subject ?? 'Email Notification',
-            'body' => $this->email->body,
-            'emailAddress' => $this->email->email,
-        ]
-    );
-}
-
+    public function content(): Content
+    {
+        return new Content(
+            view: 'emails.email_notification',
+            with: [
+                'subject' => $this->email->subject ?? 'Email Notification',
+                'body' => $this->email->body,
+                'emailAddress' => $this->email->email,
+            ]
+        );
+    }
 
     /**
      * Get the attachments for the message.
@@ -61,8 +60,8 @@ class EmailNotification extends Mailable
     {
         if ($this->email->attachment_path) {
             return [
-                Attachment::fromPath(storage_path('app/public/' . $this->email->attachment_path))
-                          ->as(basename($this->email->attachment_path)) // giữ tên file
+                Attachment::fromPath(storage_path('app/public/'.$this->email->attachment_path))
+                    ->as(basename($this->email->attachment_path)), // giữ tên file
             ];
         }
 

@@ -14,7 +14,7 @@ class EmailRequestUpdate extends FormRequest
 
     public function rules(): array
     {
-        // Lấy ID từ route model binding hoặc từ route parameter 'id'
+
         $emailId = $this->route('email')?->id ?? $this->route('id');
 
         return [

@@ -12,7 +12,6 @@ class Email extends Model
 
     protected $table = 'emails';
 
-    /// Mass assignable
     protected $fillable = [
         'email',
         'subject',
@@ -22,11 +21,8 @@ class Email extends Model
         'attempts',
     ];
 
-  protected $attributes = [
-        'attempts' => 0, // cột attempts sẽ mặc định là 0
-        'status' => 'pending', // ví dụ cột status
+    protected $attributes = [
+        'attempts' => 0,
+        'status' => 'pending',
     ];
-    
 }
-
-

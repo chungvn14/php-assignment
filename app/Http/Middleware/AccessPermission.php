@@ -12,12 +12,12 @@ class AccessPermission
     {
         $user = Auth::user();
 
-        if (!$user) {
+        if (! $user) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
 
         // Kiểm tra nếu role của user không nằm trong danh sách roles được phép
-        if (!in_array($user->role, $roles)) {
+        if (! in_array($user->role, $roles)) {
             return response()->json(['message' => 'Forbidden'], 403);
         }
 

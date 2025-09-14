@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
-use App\Models\Email;
 use App\Jobs\SendEmailJob;
+use App\Models\Email;
+use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 
 class ProcessEmails extends Command
@@ -28,10 +28,11 @@ class ProcessEmails extends Command
      */
     public function handle()
     {
-         $pendingEmails = Email::where('status', 'pending')->get();
+        $pendingEmails = Email::where('status', 'pending')->get();
 
         if ($pendingEmails->isEmpty()) {
             Log::info('No pending emails to dispatch.');
+
             return 0;
         }
 

@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    // Register
     public function register(Request $request)
     {
         $data = $request->validate([
@@ -22,7 +21,7 @@ class RegisterController extends Controller
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-             'role' => 'user',
+            'role' => 'user',
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;

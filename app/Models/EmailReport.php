@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class EmailReport extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'report_date',
         'total_email',

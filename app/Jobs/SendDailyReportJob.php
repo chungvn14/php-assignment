@@ -3,13 +3,13 @@
 namespace App\Jobs;
 
 use App\Mail\AdminDailyReport;
+use App\Models\EmailReport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Mail;
-use App\Models\EmailReport;
 
 class SendDailyReportJob implements ShouldQueue
 {
@@ -24,6 +24,7 @@ class SendDailyReportJob implements ShouldQueue
     {
         $this->report = $report;
     }
+
     /**
      * Execute the job.
      */
