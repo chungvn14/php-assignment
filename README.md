@@ -80,7 +80,8 @@ npx vite --config vite.user.config.js
 ```
 
 3. **Access frontend**
- http:localhost:8000 
+Amin site: http:localhost:8000/admin/login
+Amin site: http:localhost:8000/useer/login 
 ## 4. Queue Worker
 
 The system uses Laravel queues for email sending and daily reports.
