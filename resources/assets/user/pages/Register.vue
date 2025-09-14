@@ -49,7 +49,8 @@ const submit = async () => {
     const res = await api.post('/register', payload)
     console.log('Register response:', res.data)
     localStorage.setItem('auth_token', res.data.access_token)
-    router.push({ name: 'emails.index' })
+    localStorage.setItem('role', 'user')
+    router.push({ name: 'login' })
   } catch (err) {
     console.error('Register error:', err.response?.data || err)
     error.value = err.response?.data?.message || 'Register failed'
