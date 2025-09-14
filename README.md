@@ -80,12 +80,7 @@ npx vite --config vite.user.config.js
 ```
 
 3. **Access frontend**
-
-* Admin: [http://localhost:5173](http://localhost:5173) (default Vite port, adjust if needed)
-* User: [http://localhost:5174](http://localhost:5174) (different port for user)
--> SHOULD RUN ON localhost:8000 for be+fe
----
-
+ http:localhost:8000 
 ## 4. Queue Worker
 
 The system uses Laravel queues for email sending and daily reports.
