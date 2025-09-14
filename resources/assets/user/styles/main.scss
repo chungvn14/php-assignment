@@ -1,0 +1,15 @@
+/* very small base styles to make it look decent */
+
+body {
+    background: #f5f7fb;
+    margin: 0
+}
+
+#app {
+    min-height: 100vh
+}
+
+.panel {
+    max-width: 1100px;
+    margin: 0 auto
+}
